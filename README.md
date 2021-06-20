@@ -3,6 +3,7 @@ changemyview:https://chenhaot.com/data/cmv/cmv.tar.bz2
 ADU recognition, dependency structure parsing: please contact Katsuhide Fujita, katfuji@cc.tuat.ac.jp
 
 ## BIO parsing
+https://github.com/seasa2016/arg_parsing_bert
 ### preprocess (stage 1)
 python preprocess_parsing_full.py train_period_data.jsonlist ./preprocess_data/train/
 python preprocess_parsing_full.py heldout_period_data.jsonlist ./preprocess_data/heldout/
