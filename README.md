@@ -2,8 +2,6 @@
 changemyview:https://chenhaot.com/data/cmv/cmv.tar.bz2
 ADU recognition, dependency structure parsing: please contact Katsuhide Fujita, katfuji@cc.tuat.ac.jp
 
-
-
 ## BIO parsing
 ### preprocess (stage 1)
 python preprocess_parsing_full.py train_period_data.jsonlist ./preprocess_data/train/
@@ -14,6 +12,7 @@ python train.py --bert_model ./saved_models/gaku_essay_55/ --data /nfs/nas-5.1/k
 python train.py --bert_model ./saved_models/gaku_essay_55/ --data /nfs/nas-5.1/kyhuang/preprocess/cmv_raw_origin_full_final/heldout/parsing/clean_op --output_dir ./saved_models/gaku_essay_55/ --pred_name ./pred_result/heldout --do_test
 
 ## dependency structure parsing
+https://github.com/seasa2016/span_pytorch_para
 ### preprocess
 python preprocess_tree.py ./mapping/train/mapping ./mapping/train/mapping ./preprocess_data/train/
 python preprocess_tree.py "predict file" "mapping file" ./preprocess_data/heldout/
