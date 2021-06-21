@@ -7,18 +7,20 @@ https://github.com/seasa2016/arg_parsing_bert
 ### preprocess (stage 1)
 python preprocess_parsing_full.py train_period_data.jsonlist ./preprocess_data/train/
 python preprocess_parsing_full.py heldout_period_data.jsonlist ./preprocess_data/heldout/
-### do for op pos neg
-python train.py --bert_model ./saved_models/gaku_essay_55/ --data /nfs/nas-5.1/kyhuang/preprocess/cmv_raw_origin_full_final/train/parsing/clean_op --output_dir ./saved_models/gaku_essay_55/ --pred_name ./pred_result/train --do_test
-### do for op pos neg
-python train.py --bert_model ./saved_models/gaku_essay_55/ --data /nfs/nas-5.1/kyhuang/preprocess/cmv_raw_origin_full_final/heldout/parsing/clean_op --output_dir ./saved_models/gaku_essay_55/ --pred_name ./pred_result/heldout --do_test
+### do training for op pos neg
+python train.py --model_name_or_path bert-base-uncased --data_dir {PATH_TO_DATA} --do_train --do_eval --learning_rate 5e-5 --num_train_epochs 3.0 --output_dir {MODEL_FOLDER}
+### do testing for op pos neg
+python train.py --bert_model {PATH_TO_CHECKPOINT_FOLDER} --data {PATH_TO_DATA} --output_dir {MODEL_FOLDER} --pred_name {PREDICT_PATH} --do_test
 
 ## dependency structure parsing
 https://github.com/seasa2016/span_pytorch_para
 ### preprocess
 python preprocess_tree.py ./mapping/train/mapping ./mapping/train/mapping ./preprocess_data/train/
 python preprocess_tree.py "predict file" "mapping file" ./preprocess_data/heldout/
-### training for span_pytorch_para
-python train.py --use-elmo 1 --data-path ./../preprocess/span/CMV --elmo-path ./../preprocess/span/CMVELMo.hdf5 --optimizer Adam --lr 0.001 --ac-type-alpha 0.25 --link-type-alpha 0.25 --batchsize 16 --epoch 500 --dropout 0.5 --dropout-lstm 0.1 --lstm-ac --lstm-shell --lstm-ac-shell --lstm-type --elmo-layers avg --train --dev --test --save-dir ./saved_model/
+### Trainging
+python train.py --use-elmo 1 --data-path ${PATH_TO_DATA} --elmo-path ${PATH_TO_ELMO_EMBEDDING} --optimizer Adam --lr 0.003 --ac-type-alpha 0.25 --link-type-alpha 0.25 --batchsize 16 --epoch 64 --dropout 0.5 --dropout-lstm 0.1 --lstm-ac --lstm-shell --lstm-ac-shell --lstm-type --elmo-layers avg --train --dev --test --save-dir ./saved_model/
+### Testing
+python test.py --test-data ${PATH_TO_DATA} --test-elmo ${PATH_TO_ELMO_EMBEDDING} --result-path ${OUTPUT_PATH} --save-model ${CHECK_POINT} --lstm-ac --lstm-shell --lstm-ac-shell --lstm-type --use-elmo 1  --elmo-layers avg
 
 ## persuasiveness prediction
 ### preprocess
